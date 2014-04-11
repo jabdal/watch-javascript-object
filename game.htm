@@ -1,0 +1,76 @@
+<canvas id=c>
+<script>
+    before=function(w){var w=w||window;w.then={};for(var g in w)w.then[g]=1}
+    after=function(w){var w=w||window;w.now={};for(var g in w)if(!w.then[g])w.now[g]=1}
+    watch=function(w){var w=w||window;for(var g in w.now){var d=document.all[':'+g];if(!d){d=document.createElement('div');d.id=':'+g;d.innerHTML=g+': '+w[g];document.body.appendChild(d)}else d.innerHTML=g+': '+w[g]}}
+    
+    before()
+    
+	b = document.body
+    c = document.all.c
+    a = c.getContext('2d')
+    t = l = f = x = 400;
+    y = 550;
+    o = R = G = X = Y = 0;
+    B = [];
+    c.style.background = '#000';
+    c.onmousemove = function (e) {
+        l = e.clientX;
+        t = e.clientY;
+        t < 400 ? t = 400 : 0
+    };
+    c.onmousedown = function () {
+        G = 1
+    };
+    c.onmouseup = function () {
+        G = 0
+    };
+    
+    after()
+    
+    O = setInterval(function(){
+        c.width = w = 800;
+        c.height = h = 600;
+        
+        //draw the ball
+        a.font = '16pt Arial';
+        a.fillStyle = '#fff';
+        a.strokeStyle = '#777';
+        a.beginPath();
+        a.arc(x, y, 10, 0, 6.28);
+        a.fill();
+        
+        x += X;
+        y += Y;
+        x < 0 | x > w ? X *= -1 : 0;
+        y < 0 ? Y *= -1 : 0;
+        D = +new Date;
+        y > h ? o ? D > o ? a.fillText('GAME OVER', 355, 300, 90) & clearInterval(O) : 0 : o = D + 3000 : o = 0;
+        m = x - l;
+        n = y - t;
+        R = (m * m + n * n) * G / 2500; //R is non-zero when mouse is held down
+        A = (M = Math).atan2(m, n);
+        F = R > 1 ? 1 / R : M.sqrt(R);
+        X -= M.sin(A) * F * 4;
+        Y -= M.cos(A) * F * 4;
+        for (i = 32; i--;)
+            for (j = 4; j--;)
+                if (!B[k = j * 32 + i]) {
+                    a.strokeRect((I = i * 25) + 1.5, (J = j * 25) + 1.5, 22, 22);
+                    m = x * 2 - I * 2 - 25;
+                    m *= m;
+                    n = y * 2 - J * 2 - 25;
+                    n *= n;
+                    if (n < 900 & m < 900) {
+                        B[k] = 1;
+                        /(1,?){128}/.test(B) ? B = [] : 0;
+                        n > m ? Y *= -1 : X *= -1;
+                    }
+                }
+        G ? a.strokeStyle = '#77a' : 0;
+        a.beginPath(), a.arc(l, t, 50, 0, 6.28), a.stroke()
+        
+        watch()
+        
+    }, 32)
+</script>
